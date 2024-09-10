@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <el-button @click="back">返回</el-button>
         <div class="pic">
             <img src='../../../assets/music-picture/taotai-eason.jpg' alt="">
             <div class="musicName">歌名：{{ musicInfo.musicName }}</div>
@@ -35,6 +36,8 @@
 
 import { changeLyrics } from '@/utils/music/musicData';
 import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter()
 //添加歌单
 const value = ref('')
 const options = [
@@ -134,7 +137,10 @@ watch(currentTime, (newVal) => {
         }
     }
 })
-
+//返回
+function back() {
+    router.back()
+}
 </script>
 
 
