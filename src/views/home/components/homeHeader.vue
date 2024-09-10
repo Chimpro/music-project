@@ -14,7 +14,6 @@
 <script setup>
 import router from '@/router';
 import { ref } from 'vue';
-const activeIndex = ref('1')
 </script>
 
 

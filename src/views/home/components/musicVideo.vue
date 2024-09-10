@@ -1,10 +1,6 @@
 <template>
     <div class="mv-container">
-        <div class="cate">
-            <el-select v-model="value" placeholder="分类" size="large" style="width: 240px">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-        </div>
+        <Classify />
         <div class="mv-items">
             <div class="mv-item" v-for="(item) in 10" @click="mvdetail">
             </div>
@@ -13,33 +9,11 @@
 </template>
 
 <script lang="ts" setup>
+import Classify from '@/components/music/Classify.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter()
-const value = ref('')
 
-const options = [
-    {
-        value: 'Option1',
-        label: 'Option1',
-    },
-    {
-        value: 'Option2',
-        label: 'Option2',
-    },
-    {
-        value: 'Option3',
-        label: 'Option3',
-    },
-    {
-        value: 'Option4',
-        label: 'Option4',
-    },
-    {
-        value: 'Option5',
-        label: 'Option5',
-    },
-]
 const mvdetail = () => {
     router.push('/home/musicvideodetail')
 }
@@ -64,13 +38,6 @@ const mvdetail = () => {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    .cate {
-        margin-bottom: 20px;
-        margin-top: 20px;
-        position: relative;
-        left: -400px;
-    }
 
     .mv-items {
         background-color: skyblue;
