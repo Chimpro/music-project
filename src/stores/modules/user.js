@@ -12,7 +12,9 @@ export const useUserStore = defineStore('user',()=>{
     //}
 
     //获取用户数据并保存 
-    const userInfo = ref({})
+    const userInfo = ref({
+        token:'asdhncznxckjHADJK'
+    })
     const getUserInfo = async({username,password})=>{
         const res = await userLoginService({username,password})
         userInfo.value = res.data

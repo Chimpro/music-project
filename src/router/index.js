@@ -1,3 +1,4 @@
+import { useUserStore } from '@/stores/modules/user'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -11,10 +12,6 @@ const router = createRouter({
         {
           path:'/home/music',
           component:()=>import('@/views/home/components/music.vue')
-        },
-        {
-          path:'/home/music',
-          component:()=>import('@/views/home/components/musicList.vue')
         },
         {
           path:'/home/musicvideo',
@@ -57,5 +54,19 @@ const router = createRouter({
     },
   ]
 })
-
+//路由守卫
+router.beforeEach((to,from)=>{
+  const userStore = useUserStore()
+  if(!userStore.userInfo.token && to.path !=='/login'){
+    if(to.path === '/home/musiclist'){
+      return '/login'
+    }
+    else if(to.path === '/home/userinfo'){
+      return 'login'
+    }
+    else if(to.path === '/home/musiclistdetail'){
+      return '/login'
+    }
+  }
+})
 export default router
