@@ -1,12 +1,12 @@
 <template>
     <div class="music-container">
-        <Classify @getMusic="getMusic" />
+        <MusicClassify @getMusic="getMusic" />
         <MusicCate :musicInfos="musicInfos" />
     </div>
 </template>
 
 <script setup>
-import Classify from '@/components/music/Classify.vue';
+import MusicClassify from '@/components/music/MusicClassify.vue';
 import MusicCate from '@/components/music/MusicCate.vue';
 import { ref, onMounted } from 'vue';
 import { musicGetMusic } from '@/apis/music';
@@ -99,7 +99,5 @@ function getMusic(type) {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
 }
 </style>

@@ -1,21 +1,75 @@
 <template>
     <div class="mv-container">
-        <Classify />
-        <div class="mv-items">
-            <div class="mv-item" v-for="(item) in 10" @click="mvdetail">
-            </div>
-        </div>
+        <MvClassify @getMusicvideo="getMusicvideo" />
+        <MusicvideoCate :mvData="mvData" />
     </div>
 </template>
 
-<script lang="ts" setup>
-import Classify from '@/components/music/Classify.vue';
+<script setup>
+import MvClassify from '@/components/musicvideo/MvClassify.vue';
+import MusicvideoCate from '@/components/musicvideo/MusicvideoCate.vue';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-const router = useRouter()
+const _mvData = [
+    {
+        name: '摇滚1',
+        author: '周杰伦',
+        type: 'rock'
+    },
+    {
+        name: '抒情1',
+        author: '周杰伦',
+        type: 'lyric'
+    },
+    {
+        name: '说唱1',
+        author: '周杰伦',
+        type: 'rap'
+    },
+    {
+        name: '儿歌1',
+        author: '周杰伦',
+        type: 'baby'
+    },
+    {
+        name: '摇滚2',
+        author: '周杰伦',
+        type: 'rock'
+    },
+    {
+        name: '说唱2',
+        author: '周杰伦',
+        type: 'rap'
+    },
+    {
+        name: '抒情2',
+        author: '周杰伦',
+        type: 'lyric'
+    },
+    {
+        name: '儿歌2',
+        author: '周杰伦',
+        type: 'baby'
+    },
+    {
+        name: '摇滚3',
+        author: '周杰伦',
+        type: 'rock'
+    },
+    {
+        name: '抒情3',
+        author: '周杰伦',
+        type: 'lyric'
+    },
+]
+const mvData = ref(_mvData)
 
-const mvdetail = () => {
-    router.push('/home/musicvideodetail')
+//分类
+function getMusicvideo(type) {
+    mvData.value = _mvData.filter(function (item) {
+        if (item.type === type) {
+            return item
+        }
+    })
 }
 </script>
 
@@ -39,23 +93,6 @@ const mvdetail = () => {
     flex-direction: column;
     align-items: center;
 
-    .mv-items {
-        background-color: skyblue;
-        min-height: 700px;
-        width: 1200px;
-        display: flex;
-        flex-wrap: wrap;
 
-
-        .mv-item {
-            width: 300px;
-            height: 200px;
-            background-color: red;
-            border-radius: 10px;
-            margin-top: 20px;
-            margin-left: 80px;
-            cursor: pointer;
-        }
-    }
 }
 </style>
