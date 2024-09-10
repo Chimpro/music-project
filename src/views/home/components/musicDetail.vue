@@ -23,7 +23,8 @@
                 <div class="btn">
                     <el-button type="primary" @click="audioElement.play()">播放</el-button>
                     <el-button type="danger" @click="audioElement.pause()">暂停</el-button>
-                    <el-select v-model="value" placeholder="添加到歌单" style="width: 120px;margin-left: 10px;">
+                    <el-select v-model="value" placeholder="添加到歌单" style="width: 120px;margin-left: 10px;"
+                        v-if="userStore.userInfo.token">
                         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
                     </el-select>
                 </div>
@@ -33,10 +34,11 @@
 </template>
 
 <script setup>
-
 import { changeLyrics } from '@/utils/music/musicData';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/modules/user';
+const userStore = useUserStore()
 const router = useRouter()
 //添加歌单
 const value = ref('')

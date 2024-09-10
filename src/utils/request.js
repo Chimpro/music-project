@@ -9,9 +9,11 @@ const http = axios.create({
 
 //请求拦截器
 http.interceptors.request.use((config)=>{
-    const userStore = useUserStore() 
-    if(userStore.token){
-        config.headers.token = userStore.token
+    const userStore = useUserStore()
+    const token = userStore.userInfo.token
+    //如果token存在，那么发送请求的请求头中的token等于token
+    if(token){
+        config.headers.token = token
     }
     return config
 },(error)=>{
@@ -21,12 +23,12 @@ http.interceptors.request.use((config)=>{
 
 //响应拦截器
 http.interceptors.response.use((res)=>{
-    if(res.code === '200'){
-    //响应成功返回data
+    // if(res.code === '200'){
+    // //响应成功返回data
+    // return res.data
+    // }
+    // ElMessage({ message: res.data.message || '服务异常', type: 'error' })
     return res.data
-    }
-    ElMessage({ message: res.data.message || '服务异常', type: 'error' })
-    return Promise.reject(res.msg)
 },(error)=>{
     return Promise.reject(error)
 })

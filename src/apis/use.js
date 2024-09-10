@@ -1,8 +1,8 @@
-import request from '@/utils/request'
+import http from '@/utils/request'
 
 //注册
-export const useRegisterService = ({username,password,repassword})=>{
-    return request({
+export const userRegisterService = ({username,password,repassword})=>{
+    return http({
         url:'/user/register',
         method:'POST',
         data:{
@@ -14,8 +14,8 @@ export const useRegisterService = ({username,password,repassword})=>{
 }
 
 //登录
-export const useLoginService = ({username,password})=>{
-    return request({
+export const userLoginService = ({username,password})=>{
+    return http({
         url:'/user/login',
         method:'POST',
         data:{
@@ -25,10 +25,11 @@ export const useLoginService = ({username,password})=>{
     })
 }
 
+
 //获取用户数据
-export const userGetUserInfo = ()=>{
-    return request({
-        url:'/user/info',
-        method:'GET'
-    })
-}
+// export const userGetUserInfo = ()=>{
+//     return http({
+//         url:'/user/info',
+//         method:'GET'
+//     })
+// }

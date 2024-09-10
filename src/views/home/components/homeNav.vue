@@ -1,16 +1,16 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { userGetUserInfo } from '@/apis/use';
+// import { userGetUserInfo } from '@/apis/use';
 import { useUserStore } from '@/stores/modules/user'
 import { onMounted } from 'vue';
 const router = useRouter()
-
+const userStore = useUserStore()
 const goDetail = () => {
     router.push('/home/userinfo')
 }
 const confirm = () => {
     //清空token
-    // useUserStore.removeToken()
+    userStore.clearUserInfo()
     //退到登录页
     router.push('/login')
 }
@@ -18,16 +18,16 @@ const toLogin = () => {
     router.push('/login')
 }
 //获取user对象
-onMounted(() => {
-    userGetUserInfo()
-})
+// onMounted(() => {
+//     userGetUserInfo()
+// })
 </script>
 
 <template>
     <nav class="app-topnav">
         <div class="container">
             <ul>
-                <template v-if="true">
+                <template v-if="userStore.userInfo.token">
                     <li @click="goDetail"><a href="javascript:;">个人信息</a></li>
                     <li>
                         <el-popconfirm @confirm="confirm" title="确认退出吗?" confirm-button-text="确认"

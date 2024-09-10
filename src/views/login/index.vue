@@ -1,12 +1,13 @@
 <script setup>
 import { User, Lock } from '@element-plus/icons-vue'
-import { useRegisterService, useLoginService } from '@/apis/use'
+import { userRegisterService, userLoginService } from '@/apis/use'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/modules/user';
 import { ElMessage } from 'element-plus';
 import { onMounted, ref, watch } from 'vue'
 const isRegister = ref(false)
 const router = useRouter()
+const userStore = useUserStore()
 //数据绑定
 const formData = ref({
     username: '',
@@ -43,19 +44,28 @@ const form = ref()
 //注册预校验
 const register = async () => {
     await form.value.validate()
-    await useRegisterService(formData.value)
+    await userRegisterService(formData.value)
     ElMessage.success('注册成功')
     isRegister.value = false
 }
 
 //登录预校验
-const login = async () => {
-    await form.value.validate()
-    await useLoginService(formData.value)
-    //调用settoken方法，将token传入pinia中
-    // useUserStore.setToken(res.token)
-    ElMessage.success('登录成功')
-    router.push('/home/music')
+// //     await form.value.validate()
+// await useLoginService(formData.value)
+//     //调用settoken方法，将token传入pinia中
+//     // useUserStore.setToken(res.token)
+//     ElMessage.success('登录成功')
+//     router.push('/home/music')
+const login = () => {
+    const { username, password } = formData.value
+    form.value.validate(async (valid) => {
+        //valid：所有表单校验通过才为true
+        if (valid) {
+            await userStore.getUserInfo({ username, password })
+            ElMessage({ type: 'success', message: '登陆成功' })
+            router.push('/home/music')
+        }
+    })
 }
 
 //登陆注册切换时，输入框重置
