@@ -22,6 +22,9 @@
                 <div class="btn">
                     <el-button type="primary" @click="audioElement.play()">播放</el-button>
                     <el-button type="danger" @click="audioElement.pause()">暂停</el-button>
+                    <el-select v-model="value" placeholder="添加到歌单" style="width: 120px;margin-left: 10px;">
+                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+                    </el-select>
                 </div>
             </div>
         </div>
@@ -32,6 +35,31 @@
 
 import { changeLyrics } from '@/utils/music/musicData';
 import { ref, watch } from 'vue';
+//添加歌单
+const value = ref('')
+const options = [
+    {
+        value: 'Option1',
+        label: 'Option1',
+    },
+    {
+        value: 'Option2',
+        label: 'Option2',
+    },
+    {
+        value: 'Option3',
+        label: 'Option3',
+    },
+    {
+        value: 'Option4',
+        label: 'Option4',
+    },
+    {
+        value: 'Option5',
+        label: 'Option5',
+    },
+]
+//歌词匹配
 const audioElement = ref()
 const currentTime = ref('')
 const activeIndex = ref(0)
@@ -114,26 +142,52 @@ watch(currentTime, (newVal) => {
 .container {
     margin-top: 5px;
     min-height: 700px;
-    background-color: grey;
     border-radius: 10px;
     display: flex;
 
     .pic {
         flex: 1;
-        background-color: skyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         img {
             border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .musicName {
+            font-size: 30px;
+            margin-top: 10px;
+        }
+
+        .singer {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .lyricWriter {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .compose {
+            font-size: 20px;
+            margin-top: 20px;
         }
     }
 
     .box {
+        width: 100%;
         padding: 10px;
         flex: 1;
-        background-color: pink;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        background-color: grey;
+        opacity: 0.5;
+
+        border-radius: 20px;
 
         .video {
             width: 0;
@@ -141,19 +195,32 @@ watch(currentTime, (newVal) => {
         }
 
         .box-container {
-            height: 600px;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
             .msg {
-                margin-top: 50px;
-                height: 400px;
+                height: 300px;
                 overflow: hidden;
                 width: 300px;
+                margin-top: 50px;
 
                 ul {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: 150px;
+                    transition: ease .5s;
+
                     li {
+                        color: white;
+                        line-height: 30px;
+                        transition: all .5s;
+
                         &.active {
-                            color: greenyellow;
+                            color: black;
                             transform: scale(1.3);
                         }
                     }
@@ -161,7 +228,7 @@ watch(currentTime, (newVal) => {
             }
 
             .btn {
-                margin-top: 20px;
+                margin-top: 50px;
             }
         }
     }
